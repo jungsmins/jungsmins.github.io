@@ -1,4 +1,9 @@
-import { createThemeContract, createTheme } from '@vanilla-extract/css';
+import {
+  createThemeContract,
+  createGlobalTheme,
+  globalStyle,
+  assignVars,
+} from '@vanilla-extract/css';
 
 export const vars = createThemeContract({
   color: {
@@ -19,6 +24,24 @@ export const vars = createThemeContract({
       500: null,
       600: null,
     },
+    bg: {
+      page: null,
+      subtle: null,
+    },
+    text: {
+      default: null,
+      muted: null,
+      subtle: null,
+    },
+    border: {
+      default: null,
+      subtle: null,
+    },
+    accent: {
+      default: null,
+      hover: null,
+    },
+    highlight: null,
   },
   font: {
     body: null,
@@ -55,7 +78,7 @@ export const vars = createThemeContract({
   },
 });
 
-export const theme = createTheme(vars, {
+const sharedTokens = {
   color: {
     gray: {
       50: '#f9fafb',
@@ -82,7 +105,7 @@ export const theme = createTheme(vars, {
   fontSize: {
     xs: '0.75rem',
     sm: '0.875rem',
-    base: '1.0625rem',
+    base: '1rem',
     lg: '1.125rem',
     xl: '1.25rem',
     '2xl': '1.5rem',
@@ -107,5 +130,61 @@ export const theme = createTheme(vars, {
     sm: '4px',
     md: '8px',
     lg: '12px',
+  },
+};
+
+createGlobalTheme(':root', vars, {
+  ...sharedTokens,
+  color: {
+    ...sharedTokens.color,
+    bg: {
+      page: '#ffffff',
+      subtle: '#f3f4f6',
+    },
+    text: {
+      default: '#222222',
+      muted: '#4b5563',
+      subtle: '#6b7280',
+    },
+    border: {
+      default: '#e5e7eb',
+      subtle: '#d1d5db',
+    },
+    accent: {
+      default: '#3b82f6',
+      hover: '#2563eb',
+    },
+    highlight: '#8EACCD',
+  },
+});
+
+globalStyle(':root', {
+  '@media': {
+    '(prefers-color-scheme: dark)': {
+      vars: assignVars(vars, {
+        ...sharedTokens,
+        color: {
+          ...sharedTokens.color,
+          bg: {
+            page: 'rgb(40,44,53)',
+            subtle: 'rgb(30,33,41)',
+          },
+          text: {
+            default: 'rgba(255,255,255,0.88)',
+            muted: 'rgba(255,255,255,0.6)',
+            subtle: 'rgba(255,255,255,0.4)',
+          },
+          border: {
+            default: 'rgba(255,255,255,0.12)',
+            subtle: 'rgba(255,255,255,0.08)',
+          },
+          accent: {
+            default: '#ffa7c4',
+            hover: '#ff7eb3',
+          },
+          highlight: '#8EACCD',
+        },
+      }),
+    },
   },
 });

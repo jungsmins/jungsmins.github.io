@@ -1,16 +1,20 @@
 import { globalStyle } from '@vanilla-extract/css';
 import { vars } from './tokens.css';
 
+globalStyle('html', {
+  colorScheme: 'light dark',
+});
+
 globalStyle('body', {
   fontFamily: vars.font.body,
   fontSize: vars.fontSize.base,
   lineHeight: vars.lineHeight.relaxed,
-  color: vars.color.gray[900],
-  backgroundColor: vars.color.gray[50],
+  color: vars.color.text.default,
+  backgroundColor: vars.color.bg.page,
 });
 
 globalStyle('::selection', {
-  backgroundColor: vars.color.blue[500],
+  backgroundColor: vars.color.accent.default,
   color: '#ffffff',
 });
 
@@ -23,6 +27,6 @@ globalStyle('::-webkit-scrollbar-track', {
 });
 
 globalStyle('::-webkit-scrollbar-thumb', {
-  background: vars.color.gray[300],
+  background: vars.color.border.subtle,
   borderRadius: vars.radius.sm,
 });
