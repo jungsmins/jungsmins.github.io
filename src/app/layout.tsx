@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import { Noto_Sans_KR, JetBrains_Mono } from 'next/font/google';
 import '@/styles/reset.css';
 import '@/styles/global.css';
-import { theme } from '@/styles/tokens.css';
 import { Container } from '@/components/container/Container';
 import { Header } from '@/components/header/Header';
+import { BASE_URL } from '@/lib/config';
 
 const notoSansKR = Noto_Sans_KR({
   subsets: ['latin'],
@@ -19,17 +19,16 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000';
-
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
-  title: { default: '박정민 블로그', template: '%s | 박정민 블로그' },
+  title: { default: '개발자 박정민', template: '%s | 개발자 박정민' },
   description: '개발자 박정민의 블로그입니다.',
+  authors: [{ name: '박정민' }],
   robots: { index: true, follow: true },
   openGraph: {
     locale: 'ko_KR',
     type: 'website',
-    siteName: '박정민 블로그',
+    siteName: '개발자 박정민',
   },
 };
 
@@ -39,7 +38,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='ko' className={`${theme} ${notoSansKR.variable} ${jetbrainsMono.variable}`}>
+    <html
+      lang='ko'
+      className={`${notoSansKR.variable} ${jetbrainsMono.variable}`}
+    >
       <body>
         <Header />
         <Container>{children}</Container>
