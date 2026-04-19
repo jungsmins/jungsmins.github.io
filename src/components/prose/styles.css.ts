@@ -2,70 +2,72 @@ import { style } from '@vanilla-extract/css';
 import { globalStyle } from '@vanilla-extract/css';
 import { vars } from '@/styles/tokens.css';
 
+const LH = vars.lineHeight.normal; // line-height multiplier used throughout prose
+
 export const prose = style({
   wordBreak: 'keep-all',
   wordWrap: 'break-word',
-  lineHeight: '1.7',
-  color: vars.color.gray[800],
+  lineHeight: LH,
+  fontSize: vars.fontSize.base,
+  color: vars.color.text.default,
 });
 
 globalStyle(`${prose} h1`, {
   fontSize: '2rem',
   fontWeight: '800',
-  lineHeight: 'calc(1.7 * 2rem)',
+  lineHeight: `calc(${LH} * 2rem)`,
   marginTop: 0,
   marginBottom: 0,
   paddingBottom: 0,
 });
 
 globalStyle(`${prose} h2`, {
-  fontSize: '1.15rem',
-  fontWeight: '600',
-  lineHeight: 'calc(1.7 * 1.5rem)',
-  marginBottom: 'calc(1.7 * 0.5rem)',
-  paddingTop: 'calc(1.7 * 1.25rem)',
+  fontSize: '1.5rem',
+  fontWeight: '700',
+  lineHeight: `calc(${LH} * 1.5rem)`,
+  marginBottom: `calc(${LH} * 0.5rem)`,
+  paddingTop: `calc(${LH} * 1.25rem)`,
 });
 
 globalStyle(`${prose} h3`, {
-  fontSize: '1.05rem',
-  fontWeight: '600',
-  lineHeight: 'calc(1.7 * 1.2rem)',
-  marginBottom: 'calc(1.7 * 0.25rem)',
-  paddingTop: 'calc(1.7 * 1.15rem)',
+  fontSize: '1.25rem',
+  fontWeight: '700',
+  lineHeight: `calc(${LH} * 1.25rem)`,
+  marginBottom: `calc(${LH} * 0.25rem)`,
+  paddingTop: `calc(${LH} * 1.15rem)`,
 });
 
 globalStyle(`${prose} h4`, {
-  fontSize: '1rem',
+  fontSize: '1.1rem',
   fontWeight: '600',
-  lineHeight: 'calc(1.7 * 1.1rem)',
-  marginBottom: 'calc(1.7 * 0.25rem)',
-  paddingTop: 'calc(1.7 * 1rem)',
+  lineHeight: `calc(${LH} * 1.1rem)`,
+  marginBottom: `calc(${LH} * 0.25rem)`,
+  paddingTop: `calc(${LH} * 1rem)`,
 });
 
 globalStyle(`${prose} p`, {
-  margin: 'calc(1.7 * 0.5rem) 0',
-  lineHeight: '1.7',
+  margin: `calc(${LH} * 0.5rem) 0`,
+  lineHeight: LH,
 });
 
 globalStyle(`${prose} a`, {
-  color: vars.color.blue[500],
+  color: vars.color.accent.default,
   textDecoration: 'underline',
-  textDecorationColor: vars.color.blue[500],
+  textDecorationColor: vars.color.accent.default,
   textDecorationThickness: '0.05rem',
   textUnderlineOffset: '3px',
 });
 
 globalStyle(`${prose} a:hover`, {
   textDecoration: 'none',
-  color: vars.color.blue[600],
+  color: vars.color.accent.hover,
 });
 
 globalStyle(`${prose} :not(pre) > code`, {
   fontFamily: vars.font.mono,
-  backgroundColor: vars.color.gray[100],
+  backgroundColor: vars.color.bg.subtle,
   padding: '0.11rem 0.3rem',
   marginRight: '0.2rem',
-  border: `1px solid ${vars.color.gray[200]}`,
   borderRadius: '0.3rem',
   fontSize: '0.9rem',
 });
@@ -73,11 +75,10 @@ globalStyle(`${prose} :not(pre) > code`, {
 globalStyle(`${prose} pre`, {
   padding: '1.5rem',
   borderRadius: '0.8rem',
-  marginLeft: '-1.2rem',
-  marginRight: '-1.2rem',
+  marginBlock: `calc(${LH} * 0.5rem)`,
+  marginInline: '-1.2rem',
   overflow: 'auto',
   lineHeight: '1.5rem',
-  margin: 'calc(1.7 * 0.5rem) 0',
 });
 
 globalStyle(`${prose} pre *`, {
@@ -90,16 +91,17 @@ globalStyle(`${prose} pre *`, {
 });
 
 globalStyle(`${prose} blockquote`, {
-  paddingLeft: 'calc(1.7 * 0.5rem)',
-  borderLeft: `0.125rem solid ${vars.color.gray[300]}`,
-  margin: 'calc(1.7 * 0.5rem) 0',
-  color: vars.color.gray[600],
+  paddingLeft: `calc(${LH} * 0.5rem)`,
+  paddingBlock: `calc(${LH} * 0.25rem)`,
+  borderLeft: `0.125rem solid ${vars.color.border.subtle}`,
+  margin: `calc(${LH} * 0.5rem) 0`,
+  color: vars.color.text.muted,
 });
 
 globalStyle(`${prose} ul`, {
   listStyle: 'square',
-  paddingLeft: 'calc(1.7 * 1rem)',
-  margin: 'calc(1.7 * 0.5rem) 0',
+  paddingLeft: `calc(${LH} * 1rem)`,
+  margin: `calc(${LH} * 0.5rem) 0`,
 });
 
 globalStyle(`${prose} ul ul`, {
@@ -111,13 +113,13 @@ globalStyle(`${prose} ul ul ul`, {
 });
 
 globalStyle(`${prose} ol`, {
-  listStyle: 'auto',
-  paddingLeft: 'calc(1.7 * 1rem)',
-  margin: 'calc(1.7 * 0.5rem) 0',
+  listStyle: 'decimal',
+  paddingLeft: `calc(${LH} * 1rem)`,
+  margin: `calc(${LH} * 0.5rem) 0`,
 });
 
 globalStyle(`${prose} li`, {
-  lineHeight: '1.7',
+  lineHeight: LH,
   margin: '0.25rem 0',
 });
 
@@ -128,8 +130,8 @@ globalStyle(`${prose} img`, {
 
 globalStyle(`${prose} hr`, {
   border: 0,
-  borderTop: `1px dashed ${vars.color.gray[300]}`,
-  margin: 'calc(1.7 * 0.5rem) 0',
+  borderTop: `1px solid ${vars.color.border.subtle}`,
+  margin: `calc(${LH} * 0.5rem) 0`,
 });
 
 globalStyle(`${prose} table`, {
@@ -137,10 +139,10 @@ globalStyle(`${prose} table`, {
   width: '100%',
   overflow: 'auto',
   borderCollapse: 'collapse',
-  margin: 'calc(1.7 * 0.5rem) 0',
+  margin: `calc(${LH} * 0.5rem) 0`,
 });
 
 globalStyle(`${prose} table td, ${prose} table th`, {
-  padding: 'calc(1.7 * 0.25rem)',
-  border: `0.125rem solid ${vars.color.gray[200]}`,
+  padding: `calc(${LH} * 0.25rem)`,
+  border: `0.125rem solid ${vars.color.border.default}`,
 });

@@ -2,7 +2,6 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@/styles/tokens.css';
 
 export const header = style({
-  borderBottom: `1px solid ${vars.color.gray[200]}`,
   marginBottom: vars.space[8],
 });
 
@@ -17,22 +16,50 @@ export const inner = style({
 });
 
 export const logo = style({
-  fontSize: vars.fontSize.base,
+  fontSize: vars.fontSize.xl,
   fontWeight: '700',
-  color: vars.color.gray[900],
+  color: vars.color.text.default,
   textDecoration: 'none',
 });
+
+export const logoWithHover = style([
+  logo,
+  {
+    ':hover': {
+      color: vars.color.highlight,
+    },
+  },
+]);
 
 export const nav = style({
   display: 'flex',
   gap: vars.space[6],
 });
 
+export const githubIconLight = style({
+  display: 'block',
+  '@media': {
+    '(prefers-color-scheme: dark)': {
+      display: 'none',
+    },
+  },
+});
+
+export const githubIconDark = style({
+  display: 'none',
+  '@media': {
+    '(prefers-color-scheme: dark)': {
+      display: 'block',
+    },
+  },
+});
+
 export const navLink = style({
   fontSize: vars.fontSize.sm,
-  color: vars.color.gray[600],
+  fontWeight: '700',
+  color: vars.color.text.muted,
   textDecoration: 'none',
   ':hover': {
-    color: vars.color.gray[900],
+    color: vars.color.text.default,
   },
 });

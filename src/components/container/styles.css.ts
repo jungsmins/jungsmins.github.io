@@ -1,7 +1,8 @@
 import { style } from '@vanilla-extract/css';
+import { vars } from '@/styles/tokens.css';
 
 export const container = style({
   maxWidth: '680px',
-  margin: '2rem auto',
-  paddingInline: '1.5rem',
+  margin: `${vars.space[8]} auto`,
+  paddingInline: vars.space[6],
 });
