@@ -1,7 +1,11 @@
 import { getAllSlugs, getPostBySlug } from '@/lib/posts';
+import Link from 'next/link';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Prose } from '@/components/prose/Prose';
+import { formatDate } from '@/lib/date';
+import { postHeader, postDate, backLink } from './styles.css';
+import { BASE_URL } from '@/lib/config';
 
 export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
@@ -18,6 +22,7 @@ export async function generateMetadata({
   return {
     title: post.data.title,
     description: post.data.description,
+    alternates: { canonical: `${BASE_URL}/${slug}` },
     openGraph: {
       title: post.data.title,
       description: post.data.description,
@@ -50,6 +55,7 @@ export default async function PostPage({
     '@type': 'BlogPosting',
     headline: title,
     description: description,
+    url: `${BASE_URL}/${slug}`,
     author: { '@type': 'Person', name: '박정민' },
     datePublished: date,
     keywords: tags?.join(', '),
@@ -61,9 +67,14 @@ export default async function PostPage({
         type='application/ld+json'
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <div className={postHeader}>
+        <h1>{title}</h1>
+        <p className={postDate}>{formatDate(date)}</p>
+      </div>
       <Prose>
         <article dangerouslySetInnerHTML={{ __html: post.content }} />
       </Prose>
+      <Link href='/' className={backLink}>← Home</Link>
     </>
   );
 }
