@@ -32,16 +32,19 @@ describe('getAllPosts', () => {
 describe('getPostBySlug', () => {
   it('slug로 포스트를 가져온다', async () => {
     const post = await getPostBySlug('fixture-post1', fixtureDir);
-    expect(post.data.title).toBe('픽스처 포스트 1');
+    expect(post).not.toBeNull();
+    expect(post!.data.title).toBe('픽스처 포스트 1');
   });
 
   it('content가 HTML로 변환된다', async () => {
     const post = await getPostBySlug('fixture-post1', fixtureDir);
-    expect(post.content).toContain('<h2>');
+    expect(post).not.toBeNull();
+    expect(post!.content).toContain('<h2>');
   });
 
-  it('존재하지 않는 slug는 에러를 던진다', async () => {
-    await expect(getPostBySlug('없는포스트', fixtureDir)).rejects.toThrow();
+  it('존재하지 않는 slug는 null을 반환한다', async () => {
+    const post = await getPostBySlug('없는포스트', fixtureDir);
+    expect(post).toBeNull();
   });
 });
 
