@@ -4,7 +4,7 @@ date: '2026-04-14'
 slug: 'test2'
 description: '테스트 2번 설명'
 tags: []
-published: false
+published: true
 ---
 
 ## 본문입니다2.
